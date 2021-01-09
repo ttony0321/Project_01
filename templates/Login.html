@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="static/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
@@ -27,39 +27,8 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
           rel="stylesheet">
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-    $(document).ready(function (){
-        let Title = $(".title-wrapper")
-        let TitleEdit = $("#titleEdit");
-        Title.click(function (e){
-            e.preventDefault();
-             TitleEdit.val(Title.html());
-             Title.hide();
-             TitleEdit.show();
-             TitleEdit.children("#projectTitle").focus();
-         });
-         TitleEdit.submit(function (e){
-             e.preventDefault();
-             let EditedTitle = $("#projectTitle").val();
-             if(EditedTitle == ""){
-                 EditedTitle = "New Project";
-             }
-             Title.html(EditedTitle);
-             TitleEdit.hide();
-             Title.show();
-         });
-    })
 
-</script>
 </head>
 <body>
 <div class="chrome-container">
@@ -68,7 +37,7 @@
             <div class="header-wrapper">
                 <div class="left_logo">
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon">
                             <span class="icons">
                                 <span class="material-icons" id=search>
                                     search
@@ -77,7 +46,7 @@
                         </span>
                     </a>
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon">
                             <span class="icons">
                                 <span class="material-icons">
                                     title
@@ -86,14 +55,9 @@
                         </span>
                     </a>
                     <div class="title-box">
-                        <h1 class="title-wrapper turn">
+                        <h1 class="title-wrapper">
                             TestTitle
                         </h1>
-<!--                        타이틀 수정-->
-                        <form id="titleEdit">
-                            <input id="projectTitle" type="text" placeholder="Project Name..." autocomplete="off">
-                            <input type="submit" style="display: none">
-                        </form>
                         <input class="title-input" dir="auto" maxlength="512" value="TestTitle" aria-label="TestTitle">
                     </div>
                     <div class="unused-space">
@@ -101,12 +65,12 @@
                 </div>
                 <a class="logo">
                     <div class="logo-wrapper">
-                        <span class="logo-text logo-turn" onclick="location.href='#'">Scheduler</span>
+                        <span class="logo-text">Scheduler</span>
                     </div>
                 </a>
                 <div class="right-logo">
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon">
                             <span class="icons">
                                 <span class="material-icons">
                                     login
@@ -115,7 +79,7 @@
                         </span>
                     </a>
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon">
                             <span class="icons">
                                 <span class="material-icons">
                                     account_circle
@@ -131,18 +95,41 @@
                 <div class="content-wrapper">
                     <div class="main-content">
                         <div class="list-card-board">
-                            <div class="List-wrapper turn">
-                                <form>
-                                    <a class="open-add-list">
-                                        <span class="list-placeholder">
-                                            <span class="material-icons" id="add-icon">
-                                                add
-                                            </span>
-                                            Add List
-<!--                                            <span id="add-list-word">Add List</span>-->
-                                        </span>
-                                    </a>
-                                </form>
+                            <div>
+                                <fieldset class="Login-form">
+                                    <div class="row mt-5">
+                                        <div class="col-12 text-center">
+                                            <h1>Login</h1>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5" id="Login-buttom">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="userID">ID</label>
+                                                <input type="text" class="form-control" id="userID"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="ID">
+                                                <small id="IDHelp" class="form-text text-muted">We'll never share your
+                                                    Info with anyone
+                                                    else.</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                       placeholder="Password">
+                                            </div>
+                                            <!--                    <button type="button" class="btn btn-primary" id="login-btn">Login</button>-->
+                                            <div class="Log-btn">
+                                                <button type="button" class="btn btn-outline-primary" id="Login-btn">
+                                                    로그인
+                                                </button>
+                                                <button type="button" class="btn btn-outline-primary" id="Signin-btn">
+                                                    회원가입
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
                     </div>

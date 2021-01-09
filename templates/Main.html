@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="static/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
@@ -35,31 +35,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function (){
-        let Title = $(".title-wrapper")
-        let TitleEdit = $("#titleEdit");
-        Title.click(function (e){
-            e.preventDefault();
-             TitleEdit.val(Title.html());
-             Title.hide();
-             TitleEdit.show();
-             TitleEdit.children("#projectTitle").focus();
-         });
-         TitleEdit.submit(function (e){
-             e.preventDefault();
-             let EditedTitle = $("#projectTitle").val();
-             if(EditedTitle == ""){
-                 EditedTitle = "New Project";
-             }
-             Title.html(EditedTitle);
-             TitleEdit.hide();
-             Title.show();
-         });
-    })
-
-</script>
 </head>
 <body>
 <div class="chrome-container">
@@ -89,7 +66,7 @@
                         <h1 class="title-wrapper turn">
                             TestTitle
                         </h1>
-<!--                        타이틀 수정-->
+                        <!--                        타이틀 수정-->
                         <form id="titleEdit">
                             <input id="projectTitle" type="text" placeholder="Project Name..." autocomplete="off">
                             <input type="submit" style="display: none">
@@ -131,18 +108,34 @@
                 <div class="content-wrapper">
                     <div class="main-content">
                         <div class="list-card-board">
-                            <div class="List-wrapper turn">
-                                <form>
-                                    <a class="open-add-list">
+                            <!--                                추가된 리스트 박스-->
+                            <div class="list-form-wrapper">
+                                <div class="List-form-wrap">
+                                    <form class="addLabel" id="addLabel">
+                                        <a class="open-add-list">
                                         <span class="list-placeholder">
                                             <span class="material-icons" id="add-icon">
                                                 add
                                             </span>
                                             Add List
-<!--                                            <span id="add-list-word">Add List</span>-->
                                         </span>
-                                    </a>
-                                </form>
+                                        </a>
+                                    </form>
+                                    <!--                                +누를경우-->
+                                    <form class="addList hide" id="addList">
+                                        <input class="list-input" type="text" name="name"
+                                               placeholder="Enter List title..."
+                                               autocomplete="off" dir="auto" maxlength="512">
+                                        <div class="List-input-controls">
+                                            <input class="add-List-btn" type="submit" value="Add List">
+                                            <a class="close-icons">
+                                            <span class="material-icons close-icons">
+                                                clear
+                                            </span>
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,5 +144,6 @@
         </main>
     </div>
 </div>
+<script type="text/javascript" src="../static/trello.js"></script>
 </body>
 </html>
