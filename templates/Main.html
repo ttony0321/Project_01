@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="../static/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap.min.css?ver=1"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
@@ -36,6 +36,7 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="icon" type="image/png" href="http://example.com/myicon.png">
 
 </head>
 <body>
@@ -109,6 +110,7 @@
                     <div class="main-content">
                         <div class="list-card-board">
                             <!--                                추가된 리스트 박스-->
+
                             <div class="list-form-wrapper">
                                 <div class="List-form-wrap">
                                     <form class="addLabel" id="addLabel">
@@ -127,7 +129,7 @@
                                                placeholder="Enter List title..."
                                                autocomplete="off" dir="auto" maxlength="512">
                                         <div class="List-input-controls">
-                                            <input class="add-List-btn" type="submit" value="Add List">
+                                            <input class="add-List-btn" type="submit" value="Add List" onclick="List()">
                                             <a class="close-icons">
                                             <span class="material-icons close-icons">
                                                 clear
@@ -144,6 +146,6 @@
         </main>
     </div>
 </div>
-<script type="text/javascript" src="../static/trello.js"></script>
+<script type="text/javascript" src="../static/trello.js?ver=1"></script>
 </body>
 </html>

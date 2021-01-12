@@ -10579,6 +10579,14 @@ form{
     display: inline-block;
     height: 100%;
 }
+.card-input-controls{
+    height: 32px;
+    overflow: hidden;
+    margin: 4px 0 0;
+    width: 272px;
+    display: inline-block;
+    height: 100%;
+}
 .add-List-btn{
     float: left;
     min-height: 32px;
@@ -10594,6 +10602,20 @@ form{
     padding-right: 12px;
 }
 .addList-btn{
+    float: left;
+    min-height: 32px;
+    height: 32px;
+    margin-top: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #5aac44;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.addcard-btn{
     float: left;
     min-height: 32px;
     height: 32px;
