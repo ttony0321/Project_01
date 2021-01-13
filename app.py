@@ -21,7 +21,8 @@ def save_list():
     list_receive = request.form['list_title']
 
     doc = {
-        'List_title': list_receive
+        'List_title': list_receive,
+
     }
 
     db.List_show.insert_one(doc)
@@ -33,9 +34,11 @@ def save_list():
 def save_card():
 
     card_receive = request.form['card_title']
+    card_id_receive = request.form['card_id']
 
     doc = {
-        'Card_title': card_receive
+        'Card_title': card_receive,
+        'card_id': card_id_receive
     }
 
     db.Card_show.insert_one(doc)

@@ -33,10 +33,12 @@ $(document).ready(function () {
     });
     $(document).on("submit", ".add-card-form", function (e) {
         e.preventDefault();
+
         let addCardLabel = $(this).parent().children(".add-card-btn");
         let content = $(this).find('.list-card-textarea');
         if (content.val().length > 0) {
             addCardLabel.hide()
+
             $(this).parent().children('.card-wrap').append(`<div class="list-box-card">
                                             <a class="list-card">
                                                 <div class="list-card-details">
@@ -46,11 +48,31 @@ $(document).ready(function () {
                                                 </div>
                                             </a>
                                         </div>`)
+            //이건 작동함
+            card_title = content.val()
         }
-        console.log(content.val()+"1")
+
         content.val("");
+        $('.card-wrap').each(function (i){
+            $(this).attr('id', 'card-num'+ (i + 1))
+        })
+        $(this).parents('.card-wrap').attr('id')
+        card_id = $(this).parent().children('.card-wrap').attr('id')
+
         $(this).hide();
         addCardLabel.show();
+        //카드 ajax Post
+        $.ajax({
+            type: "POST",
+            url: "/card",
+            data: {card_title: card_title, card_id: card_id},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                }
+        }
+})
+
+
     $(function () {
         $('.card-wrap').sortable({
             connectWith: ".card-wrap",
@@ -75,10 +97,12 @@ $(document).ready(function () {
             },
         })
     })
-});
+
+})
     $(document).on('click', '.addcard-btn', function (e) {
         e.preventDefault();
         $(this).parents('.add-card-bottom').submit();
+
     })
     $(document).on('click', '.close-icons', function (e) {
         e.preventDefault();
@@ -141,7 +165,7 @@ $(document).ready(function () {
                                             <div class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
-                                                        <input class="addcard-btn" type="submit" value="Add Card" onclick="card()">
+                                                        <input class="addcard-btn" type="submit" value="Add Card">
                                                         <a class="close-icons">
                                                                     <span class="material-icons close-icons">
                                                                         clear
@@ -157,11 +181,20 @@ $(document).ready(function () {
                                 </div>
                             </div>`
             );
+
         }
         console.log(listBoxTitle.val())
+        $('.list-box-wrapper').each(function (i){
+            $(this).attr('id', 'num' + (i + 1))
+            // $(this).children().children('.card-wrap').attr('id', 'card-num'+ (i + 1))
+        })
         listBoxTitle.val("");
         addListForm.hide();
         addListLabel.show();
+
+        //List 추가 ajax
+        //let list_title = listBoxTitle.val();
+
     });
     $(".close-icons").click(function (e) {
         $(".list-input").val("");
@@ -205,70 +238,90 @@ $(document).ready(function () {
 })
 
 //Making API
-function List(){
+function List() {
     let list_title = $('.list-input').val();
     $.ajax({
         type: "POST",
-        url:"/list",
-        data: {list_title:list_title},
-        success: function (response){
-            if(response['result'] == 'success'){
+        url: "/list",
+        data: {list_title: list_title},
+        success: function (response) {
+            if (response['result'] == 'success') {
                 console.log('list_title POST success')
             }
         },
     })
 }
-function card(){
-    let card_title = $('.list-card-textarea').val();
-    console.log(card_title)
-    console.log($('.list-card-textarea').val())
-    $.ajax({
-        type: "POST",
-        url: "/card",
-        data: {card_title: card_title},
-        success: function (response){
-            if (response['result'] == 'success'){
-                console.log(card_title)
-                console.log($('.list-card-textarea').val())
-            }
-        }
-    })
-}
-function showList(){
-    $.ajax({
-        type:"GET",
-        url:"/memo",
-        data:{},
-        success: function (response){
-            if (response['result'] == 'success'){
-                //let List_show = response['List_show'];
-                for (let i = 0; i < response['list_show'].length; i++){
-                    MakeListCArd(response['list_show'][i]['List_title'])
+    // function card() {
+    // //생성되는 카드위치의 부모 위치 소환
+    //     let card_title
+    //     let card_id
+    //     let i
+    //     //let card_title = $('.list-card-textarea').val();
+    //     //let card_id = $('.add-card-form').parent().children('.card-wrap').attr('id')
+    //     console.log(($(".list-box-wrapper").attr('id')))
+    //     console.log($('.list-box-wrapper').length)
+    //     //$(".list-box-wrapper").attr('id')
+    //     // for (i =1; i<$('.list-box-wrapper').length + 1; i++){
+    //     //     console.log(('#card-num'+i))
+    //     //     if (($('#card-num'+i).parent().parent()) == $('#num'+i)){
+    //     //         card_title = $("#card-num"+i).children('.list-card-textarea').val();
+    //     //         card_id = $("#card-num"+i)
+    //     //     }
+    //     //     else{
+    //     //         alert("card function error")
+    //     //     }
+    //     // }
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/card",
+    //         data: {card_title: card_title, card_id: card_id},
+    //         success: function (response) {
+    //             if (response['result'] == 'success') {
+    //                 console.log(card_title)
+    //                 console.log($('.list-card-textarea').val())
+    //             }
+    //         }
+    //     })
+    // }
+
+    function showList() {
+        $.ajax({
+            type: "GET",
+            url: "/memo",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    //let List_show = response['List_show'];
+                    for (let i = 0; i < response['list_show'].length; i++) {
+                        MakeListCArd(response['list_show'][i]['List_title'])
+                    }
+                } else {
+                    alert('error');
                 }
-            }else{
-                alert('error');
             }
-        }
-    })
-}
-function showCard(){
-    $.ajax({
-        type:"GET",
-        url:"/memo2",
-        data:{},
-        success: function (response){
-            if(response['result'] == 'success'){
-                for (let i =0; i < response['card_show'].length; i++){
-                    MakeCard(response['card_show'][i]['Card_title'])
+        })
+    }
+
+    function showCard() {
+        $.ajax({
+            type: "GET",
+            url: "/memo2",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    for (let i = 0; i < response['card_show'].length; i++) {
+                        MakeCard(response['card_show'][i]['Card_title'], response['card_show'][i]['card_id'])
+                        console.log(response['card_show'][i]['card_id'])
+                    }
+                } else {
+                    alert('error');
                 }
-            }else{
-                alert('error');
             }
-        }
-    })
-}
-function MakeListCArd(list_title){
-    let listWrapper = `<div class="list-box-wrapper">
+        })
+    }
+
+    function MakeListCArd(list_title) {
+        let listWrapper = `<div class="list-box-wrapper">
                                 <div class="list-box">
                                     <div class="list-header">
                                         <div class="list-header-edit">
@@ -306,7 +359,7 @@ function MakeListCArd(list_title){
                                             <div class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
-                                                        <input class="addcard-btn" type="submit" value="Add Card" onclick="card()">
+                                                        <input class="addcard-btn" type="submit" value="Add Card">
                                                         <a class="close-icons">
                                                                     <span class="material-icons close-icons">
                                                                         clear
@@ -321,12 +374,18 @@ function MakeListCArd(list_title){
 
                                 </div>
                             </div>`;
-    console.log($('.list-card-textarea').val())
-    $('.list-form-wrapper').before(listWrapper);
-    //$('.List-form-wrap').prepend(listWrapper);
-}
-function MakeCard(card_title){
-    let card_wrapper = `<div class="list-box-card">
+        console.log($('.list-card-textarea').val())
+        $('.list-form-wrapper').before(listWrapper);
+        $('.list-box-wrapper').each(function (i) {
+            $(this).attr('id', 'num' + (i + 1))
+        })
+        //$('.List-form-wrap').prepend(listWrapper);
+    }
+
+    function MakeCard(card_title, card_id) {
+    console.log("테스트"+ card_id)
+    console.log($('.list-box').children("#"+card_id))
+        let card_wrapper = `<div class="list-box-card">
                                             <a class="list-card">
                                                 <div class="list-card-details">
                                                     <span class="list-card-title">
@@ -335,5 +394,10 @@ function MakeCard(card_title){
                                                 </div>
                                             </a>
                                         </div>`
-    $('.card-wrap').append(card_wrapper)
-}
+
+        $('.card-wrap').each(function (i) {
+            $(this).attr('id', 'card-num' + (i + 1))
+        })
+        $('.list-box').children("#"+card_id).append(card_wrapper)
+    }
+
