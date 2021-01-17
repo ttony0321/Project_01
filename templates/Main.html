@@ -37,6 +37,7 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link rel="icon" type="image/png" href="http://example.com/myicon.png">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 </head>
 <body>
@@ -79,12 +80,12 @@
                 </div>
                 <a class="logo">
                     <div class="logo-wrapper">
-                        <span class="logo-text logo-turn" onclick="location.href='#'">Scheduler</span>
+                        <span class="logo-text logo-turn" onclick="location.href='/'">Scheduler</span>
                     </div>
                 </a>
                 <div class="right-logo">
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon turn" onclick="logingo()">
                             <span class="icons">
                                 <span class="material-icons">
                                     login
@@ -93,7 +94,7 @@
                         </span>
                     </a>
                     <a href="#" class="search-btn">
-                        <span class="search-icon turn">
+                        <span class="search-icon turn" onclick="logout()">
                             <span class="icons">
                                 <span class="material-icons">
                                     account_circle
@@ -144,6 +145,16 @@
                 </div>
             </div>
         </main>
+    </div>
+    <div class="card-edit hide">
+        <div class="card-editor">
+            <div class="card-editor-box">
+                <div class="card-editor-box-details">
+                    <textarea class="card-edit-textarea" dir="auto" placeholder="please enter Message..."></textarea>
+                </div>
+            </div>
+            <input class="card-editor-btn" type="submit" value="save">
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="../static/trello.js?ver=1"></script>
