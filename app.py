@@ -3,12 +3,17 @@ from bson import json_util
 import jwt
 import datetime
 import hashlib
+from mongoengine_jsonencoder import MongoEngineJSONEncoder
+
 app = Flask(__name__)
+app.json_encoder = MongoEngineJSONEncoder
+
 
 
 from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
+#client = MongoClient('mongodb://ttony0321:pang0228@3.36.64.214', 27017)
 db = client.dbtrello
 
 SECRET_KEY = 'trello'

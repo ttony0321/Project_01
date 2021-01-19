@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".list-form-wrapper").html();
-    showList()
     showCard()
+    showList()
     var Title = $(".title-wrapper");
     var TitleEdit = $("#titleEdit");
     // addListForm = $(".addList");
@@ -24,14 +24,13 @@ $(document).ready(function () {
         Title.show();
     });
 
-//리스트박스 카드 추가
+    //리스트박스 카드 추가
     $(document).on('click', ".add-card-btn", function (e) {
         e.preventDefault();
         $(this).hide();
         $(this).parent().children(".add-card-form").show();
         $(this).parent().children(".add-card-form").children("textarea").focus();
     });
-    //카드 폼
     $(document).on("submit", ".add-card-form", function (e) {
         e.preventDefault();
 
@@ -42,18 +41,18 @@ $(document).ready(function () {
             addCardLabel.hide()
 
             $(this).parent().children('.card-wrap').append(`<div class="list-box-card">
-                                            <a class="list-card">
-                                            <span class="material-icons edit-icon">
+                                                <a class="list-card">
+                                                <span class="material-icons edit-icon">
                                                     edit
                                                 </span>
-                                                <div class="list-card-details">
-                                                    <span class="list-card-title">
-                                                        ${content.val()}
-                                                    </span>
-                                                    <span class="uuid hide" id="target2">${card_uuid}</span>
-                                                </div>
-                                            </a>
-                                        </div>`)
+                                                    <div class="list-card-details">
+                                                        <span class="list-card-title">
+                                                            ${content.val()}
+                                                        </span>
+                                                        <span class="uuid hide" id="target2">${card_uuid}</span>
+                                                    </div>
+                                                </a>
+                                            </div>`)
             //이건 작동함
             card_title = content.val()
         }
@@ -68,40 +67,38 @@ $(document).ready(function () {
         $(this).hide();
         addCardLabel.show();
         //카드 ajax Post
-        card = (
-        $.ajax({
-            type: "POST",
-            url: "/card",
-            data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid},
-            success: function (response) {
-                if (response['result'] == 'success') {
-                }
-            }
-        }))
-        login_check(card)
 
-//위치이동
+            $.ajax({
+                type: "POST",
+                url: "/card",
+                data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                    }
+                }
+            })
+
+
+
+
         $(function () {
             $('.card-wrap').sortable({
                 connectWith: ".card-wrap",
                 over: function (event, ui) {
-                    $('.list-card').css('background-color', 'rgba(0,0,0,.1)')
+                    $('.list-card-details').css('background-color', 'rgba(0,0,0,.1)')
                 },
                 out: function (event, ui) {
-                    $('.list-card').css('background-color', '#fff')
+                    $('.list-card-details').css('background-color', '#fff')
                 },
                 receive: function (event, ui) {
-                    $('.list-card').css('background-color', '#fff')
+                    $('.list-card-details').css('background-color', '#fff')
                 },
                 revert: 100,
                 start: function (event, ui) {
-                    // console.log(ui.item[0].firstChild.id)
-                    // var elementId = (ui.item[0].firstChild.id)
-                    // $('#' + elementId).css('transform', 'rotate(15deg)');
+
                 },
                 stop: function (event, ui) {
-                    // var elementId = (ui.item[0].firstChild.id)
-                    // $('#' + elementId).css('transform', 'rotate(0deg)');
+
                 },
             })
         })
@@ -136,58 +133,58 @@ $(document).ready(function () {
         if (listBoxTitle.val().length > 0) {
             $('.list-form-wrapper').before(
                 `<div class="list-box-wrapper">
-                                <div class="list-box">
-                                    <div class="list-header">
-                                        <div class="list-header-edit">
-                                        </div>
-                                        <h2 class="list-header-name" dir="auto">
-                                            header name
-                                        </h2>
-                                        <textarea class="list-header-textarea" aria-label="header name"
-                                                  spellcheck="false" dir="auto" maxlength="512">${listBoxTitle.val()}
-                                            </textarea>
-                                    </div>
-                                    <div class="card-wrap">
-                                    
-                                        </div>
-                                    <div class="add-card-btn">
-                                        <a class="add-card-control">
-                                                <span class="material-icons" id=list-add>
-                                                    add
-                                                </span>
-                                            <span class="add-a-card">
-                                                    Add another card
-                                                </span>
-                                        </a>
-                                    </div>
-                                    <div class="add-card-form hide">
-                                        <div class="add-card-controls">
-                                            <div class="list-card-textspace">
-                                                <div class="list-card-text">
-                                                    <div class="list-card-labels"></div>
-                                                    <textarea class="list-card-textarea" dir="auto"
-                                                              placeholder="Enter a title for this card..."></textarea>
-                                                    <div class="list-card-members"></div>
-                                                </div>
+                                    <div class="list-box">
+                                        <div class="list-header">
+                                            <div class="list-header-edit">
                                             </div>
-                                            <div class="add-card-bottom">
-                                                <div class="control-section">
-                                                    <div class="card-input-controls">
-                                                        <input class="addcard-btn" type="submit" value="Add Card">
-                                                        <a class="close-icons">
-                                                                    <span class="material-icons close-icons">
-                                                                        clear
-                                                                    </span>
-                                                        </a>
+                                            <h2 class="list-header-name" dir="auto">
+                                                header name
+                                            </h2>
+                                            <textarea class="list-header-textarea" aria-label="header name"
+                                                      spellcheck="false" dir="auto" maxlength="512">${listBoxTitle.val()}
+                                                </textarea>
+                                        </div>
+                                        <div class="card-wrap">
+                                        
+                                            </div>
+                                        <div class="add-card-btn">
+                                            <a class="add-card-control">
+                                                    <span class="material-icons" id=list-add>
+                                                        add
+                                                    </span>
+                                                <span class="add-a-card">
+                                                        Add another card
+                                                    </span>
+                                            </a>
+                                        </div>
+                                        <div class="add-card-form hide">
+                                            <div class="add-card-controls">
+                                                <div class="list-card-textspace">
+                                                    <div class="list-card-text">
+                                                        <div class="list-card-labels"></div>
+                                                        <textarea class="list-card-textarea" dir="auto"
+                                                                  placeholder="Enter a title for this card..."></textarea>
+                                                        <div class="list-card-members"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="add-card-bottom">
+                                                    <div class="control-section">
+                                                        <div class="card-input-controls">
+                                                            <input class="addcard-btn" type="submit" value="Add Card">
+                                                            <a class="close-icons">
+                                                                        <span class="material-icons close-icons">
+                                                                            clear
+                                                                        </span>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+    
+    
                                     </div>
-
-
-                                </div>
-                            </div>`
+                                </div>`
             );
 
         }
@@ -209,47 +206,90 @@ $(document).ready(function () {
         addListForm.hide();
         addListLabel.show();
     });
-//리스트 이동
-// $('.list-box').sortable({
-//     placeholder:"list-placeholder",
-//     handle:".list-header",
-// });
-// //카드 이동
-// $('.card-wrap').sortable({
-//     connectWith:".card-wrap",
-//     placeholder: "card-placeholder"
-// });
-//Drag and Drop
+    //리스트 이동
+    // $('.list-box').sortable({
+    //     placeholder:"list-placeholder",
+    //     handle:".list-header",
+    // });
+    // //카드 이동
+    // $('.card-wrap').sortable({
+    //     connectWith:".card-wrap",
+    //     placeholder: "card-placeholder"
+    // });
+    //Drag and Drop
     $(function () {
         $('.card-wrap').sortable({
             connectWith: ".card-wrap",
             over: function (event, ui) {
-                $('.list-card').css('background-color', 'rgba(0,0,0,.1)')
+                $('.list-card-details').css('background-color', 'rgba(0,0,0,.1)')
             },
             out: function (event, ui) {
-                $('.list-card').css('background-color', 'rgba(0,0,0,.1)')
+                $('.list-card-details').css('background-color', 'rgba(0,0,0,.1)')
             },
             receive: function (event, ui) {
-                $('.list-card').css('background-color', '#fff')
+                $('.list-card-details').css('background-color', '#fff')
             },
             revert: 100,
             start: function (event, ui) {
-                // var elementId = (ui.item[0].firstChild.id)
-                // $('#' + elementId).css('transform', 'rotate(15deg)');
             },
             stop: function (event, ui) {
-                // var elementId = (ui.item[0].firstChild.id)
-                // $('#' + elementId).css('transform', 'rotate(0deg)');
             },
         })
     })
-    //카드 수정
+    // top, left 좌표, 수정 데이터
+
+    // $(document).on('click', ".edit-icon", function (e) {
+    //     e.preventDefault()
+    //     let text = $(".list-card-title");
+    //     let text_edit = $(".edit-icon");
+    //     let top = $(this).parent().offset().top;
+    //     let left = $(this).parent().offset().left;
+    //     console.log("left: " + left + "px, top: " + top + "px")
+    //     $('.card-editor').css({
+    //         "top": top + "px",
+    //         "left": left + "px"
+    //     })
+    //     $('.card-edit').show()
+    // })
+    // esc눌러서 취소
+    // $(document).keydown(function (e) {
+    //     e.preventDefault();
+    //     if (event.keyCode == 27 || event.which == 27) {
+    //         $(".card-edit-textarea").val("");
+    //         $('.card-edit').hide()
+    //     }
+    // })
+    // submit 클릭
+    // $(document).on("click", ".card-editor-btn", function (e){
+    //     e.preventDefault();
+    //     $(this).parent().submit();
+    // })
+    // 글수정
+    // $(document).on("submit", ".card-editor", function (e) {
+    //     e.preventDefault();
+    //     console.log('submit work')
+    //     let edit_title = $(this).children('.card-editor-box').children().children(".card-edit-textarea").val()
+    //     console.log(edit_title)
+    //     $.ajax({
+    //         type: "PUT",
+    //         url: "/card",
+    //         data: {"edit_title": edit_title, "card_id": card_id, "card_uuid": card_uuid},
+    //         success: function (response){
+    //             if (response['result'] == 'success') {
+    //                 console.log(response)
+    //                 console.log(edit_title)
+    //             }
+    //         }
+    //     })
+    //     $(".card-edit-textarea").val("");
+    //     $('.card-edit').hide()
+    // })
     $(document).on('click', '.edit-icon', function (e) {
         let top = $(this).parent().children('.list-card-details').offset().top;
         let left = $(this).parent().children('.list-card-details').offset().left;
         contents = $(this).parent().children('.list-card-details').children('.list-card-title').text()
         content = $.trim(contents)
-        card_cont = $(this).parent().children('.list-card-details').children('.list-card-title')
+        card_cont =  $(this).parent().children('.list-card-details').children('.list-card-title')
         uuid = $(this).parent().children('.list-card-details').children('.uuid').text()
         id_card = $(this).parent().parent().parent('.card-wrap').attr('id')
         console.log(content)
@@ -263,7 +303,6 @@ $(document).ready(function () {
         $('.card-edit').show()
         return content, uuid, id_card
     })
-    //첫번째만 수정가능.....
     $(document).on('submit', '.card-editor', function (e) {
         let edit_title = $(this).children().children().children('.card-edit-textarea').val()
         console.log(edit_title)
@@ -282,13 +321,13 @@ $(document).ready(function () {
         card_cont.text(edit_title)
 
     })
-    $(document).on('click', '.card-editor-btn', function (e) {
+    $(document).on('click','.card-editor-btn', function (e){
         $(this).parent().submit()
         $(".card-edit-textarea").val("");
         $('.card-edit').hide()
-    })
-    $(document).keydown(function (e) {
-        if (e.keyCode == 27 || e.which == 27) {
+    } )
+    $(document).keydown(function (e){
+        if(e.keyCode == 27|| e.which == 27){
             $(".card-edit-textarea").val("");
             $('.card-edit').hide()
         }
@@ -298,18 +337,18 @@ $(document).ready(function () {
 //Making API
 function List() {
     let list_title = $('.list-input').val();
-    MList =
-    ($.ajax({
-        type: "POST",
-        url: "/list",
-        data: {list_title: list_title},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                console.log('list_title POST success')
-            }
-        },
-    }))
-    login_check(MList)
+
+        $.ajax({
+            type: "POST",
+            url: "/list",
+            data: {list_title: list_title},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    console.log('list_title POST success')
+                }
+            },
+        })
+
 }
 
 // function card() {
@@ -346,43 +385,43 @@ function List() {
 // }
 
 function showList() {
-    SList =
-    ($.ajax({
-        type: "GET",
-        url: "/memo",
-        data: {},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                //let List_show = response['List_show'];
-                for (let i = 0; i < response['list_show'].length; i++) {
-                    MakeListCArd(response['list_show'][i]['List_title'])
+
+        $.ajax({
+            type: "GET",
+            url: "/memo",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    //let List_show = response['List_show'];
+                    for (let i = 0; i < response['list_show'].length; i++) {
+                        MakeListCArd(response['list_show'][i]['List_title'])
+                    }
+                } else {
+                    alert('error');
                 }
-            } else {
-                alert('error');
             }
-        }
-    }))
-    login_check(SList)
+        })
+
 }
 
 function showCard() {
-Scard =
-    ($.ajax({
-        type: "GET",
-        url: "/memo2",
-        data: {},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                for (let i = 0; i < response['card_show'].length; i++) {
-                    MakeCard(response['card_show'][i]['Card_title'], response['card_show'][i]['card_id'], response['card_show'][i]['card_uuid'])
 
+        $.ajax({
+            type: "GET",
+            url: "/memo2",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    for (let i = 0; i < response['card_show'].length; i++) {
+                        MakeCard(response['card_show'][i]['Card_title'], response['card_show'][i]['card_id'], response['card_show'][i]['card_uuid'])
+
+                    }
+                } else {
+                    alert('error');
                 }
-            } else {
-                alert('error');
             }
-        }
-    }))
-    login_check(Scard)
+        })
+
 }
 
 function MakeListCArd(list_title) {
@@ -448,18 +487,18 @@ function MakeListCArd(list_title) {
 }
 
 function MakeCard(card_title, card_id, card_uuid) {
-    console.log("테스트" + card_id)
+    console.log("#" + card_id)
     console.log($('.list-box').children("#" + card_id))
     let card_wrapper = `<div class="list-box-card">
                                             <a class="list-card">
                                             <span class="material-icons edit-icon">
-                                                    edit
+                                                edit
                                             </span>
                                                 <div class="list-card-details">
                                                     <span class="list-card-title">
                                                         ${card_title}
-                                                    <span class="uuid hide" id="target">${card_uuid}</span>
                                                     </span>
+                                                    <span class="uuid hide" id="target">${card_uuid}</span>
                                                 </div>
                                             </a>
                                         </div>`
@@ -476,6 +515,9 @@ function getuuid() {
         return v.toString(16);
     });
 }
+
+
+
 
 function logingo() {
     window.location.href = '/login'
@@ -535,6 +577,7 @@ function logout() {
     alert('로그아웃!')
     window.location.href = '/'
 }
+
 
 function login_check(ajax_func) {
     if ($.cookie('mytoken') == undefined) {
