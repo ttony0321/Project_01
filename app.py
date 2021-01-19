@@ -84,7 +84,7 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
 
 
-# 주문하기(POST) API
+# Trello(POST) API
 @app.route('/list', methods=['POST'])
 def save_list():
 
@@ -118,17 +118,15 @@ def save_card():
     return jsonify({'result': 'success'})
 
 
-# @app.route('/card', methods=['PUT'])
-# def update_card():
-#
-#     edit_receive = request.form['edit_title']
-#     card_uuid_receive = request.form['card_uuid']
-#
-#     db.Card_show.find_one({'card_uuid': card_uuid_receive})
-#
-#     db.Card_show.update_one({'card_uuid': card_uuid_receive}, {"$set": {'Card_title': edit_receive}})
-#
-#     return jsonify({'result': 'success'})
+@app.route('/card', methods=['PUT'])
+def update_card():
+    card_receive = request.form['card_title']
+    card_id = request.form['card_id']
+    card_uuid_receive = request.form['card_uuid']
+
+    db.Card_show.update_one({'card_uuid': card_uuid_receive}, {"$set": {'Card_title': card_receive, 'card_id': card_id}})
+
+    return jsonify({'result': 'success'})
 
 
 @app.route('/memo', methods=['GET'])
