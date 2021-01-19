@@ -3,11 +3,8 @@ from bson import json_util
 import jwt
 import datetime
 import hashlib
-from mongoengine_jsonencoder import MongoEngineJSONEncoder
 
 app = Flask(__name__)
-app.json_encoder = MongoEngineJSONEncoder
-
 
 
 from pymongo import MongoClient

@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 //Making API
 function List() {
-    let list_title = $('.list-input').val();
+    list_title = $('.list-input').val();
     MList =
     ($.ajax({
         type: "POST",
@@ -458,8 +458,8 @@ function MakeCard(card_title, card_id, card_uuid) {
                                                 <div class="list-card-details">
                                                     <span class="list-card-title">
                                                         ${card_title}
-                                                    <span class="uuid hide" id="target">${card_uuid}</span>
                                                     </span>
+                                                    <span class="uuid hide" id="target">${card_uuid}</span>
                                                 </div>
                                             </a>
                                         </div>`
