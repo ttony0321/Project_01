@@ -68,7 +68,7 @@ $(document).ready(function () {
         $(this).hide();
         addCardLabel.show();
         //카드 ajax Post
-        if($.cookie('mytoken') != undefined) {
+        if ($.cookie('mytoken') != undefined) {
             $.ajax({
                 type: "POST",
                 url: "/card",
@@ -298,7 +298,7 @@ $(document).ready(function () {
 
 //Making API
 function List() {
-    if($.cookie('mytoken') != undefined) {
+    if ($.cookie('mytoken') != undefined) {
         let list_title = $('.list-input').val()
         console.log(user_id)
         console.log(user_nick)
@@ -350,21 +350,25 @@ function List() {
 
 function showList() {
     SList =
-        ($.ajax({
-            type: "GET",
-            url: "/memo",
-            data: {},
-            success: function (response) {
-                if (response['result'] == 'success') {
-                    //let List_show = response['List_show'];
-                    for (let i = 0; i < response['list_show'].length; i++) {
+        (
+
+    $.ajax({
+        type: "GET",
+        url: "/memo",
+        headers: {'token_give': $.cookie('mytoken')},
+        data: {},
+        success: function (response) {
+            if (response['result'] == 'success') {
+                for (let i = 0; i < response['list_show'].length; i++) {
                         MakeListCArd(response['list_show'][i]['List_title'])
-                    }
-                } else {
-                    alert('error');
+
                 }
+            } else {
+                alert('error');
             }
-        }))
+        }
+    })
+)
     login_check(SList)
 }
 
@@ -388,8 +392,8 @@ function showCard() {
     login_check(Scard)
 }
 
-function MakeListCArd(list_title) {
-    let listWrapper = `<div class="list-box-wrapper">
+function MakeListCArd(list_title, user_id) {
+        let listWrapper = `<div class="list-box-wrapper">
                                 <div class="list-box">
                                     <div class="list-header">
                                         <div class="list-header-edit">
@@ -442,12 +446,13 @@ function MakeListCArd(list_title) {
 
                                 </div>
                             </div>`;
-    console.log($('.list-card-textarea').val())
-    $('.list-form-wrapper').before(listWrapper);
-    $('.list-box-wrapper').each(function (i) {
-        $(this).attr('id', 'num' + (i + 1))
-    })
-    //$('.List-form-wrap').prepend(listWrapper);
+        console.log($('.list-card-textarea').val())
+        $('.list-form-wrapper').before(listWrapper);
+        $('.list-box-wrapper').each(function (i) {
+            $(this).attr('id', 'num' + (i + 1))
+        })
+        //$('.List-form-wrap').prepend(listWrapper);
+
 }
 
 function MakeCard(card_title, card_id, card_uuid) {
@@ -537,6 +542,7 @@ function logout() {
     $.removeCookie('mytoken');
     alert('로그아웃!')
     window.location.href = '/'
+    $('.id_nick').val("");
 }
 
 function login_check(ajax_func) {
@@ -547,24 +553,28 @@ function login_check(ajax_func) {
         user_info()
     }
 }
-function user_info(){
+
+function user_info() {
     $.ajax({
         type: "GET",
         url: "/api/id",
-        headers:{'token_give' : $.cookie('mytoken') },
+        headers: {'token_give': $.cookie('mytoken')},
         data: {},
-        success: function (response){
-            if(response['result'] == 'success'){
-                $('.id_nick').attr('id', 'nickname')
+        success: function (response) {
+            if (response['result'] == 'success') {
+                $('.id_nick').attr('id', response['id'])
                 token = $.cookie('mytoken')
                 console.log($.cookie('mytoken'))
                 user_id = response['id']
+                $('.id_nick').text(response['id'])
                 user_nick = response['nick']
                 console.log(user_id)
                 console.log(user_nick)
-            }else{
-                 alert(response['msg'])
+            } else {
+                alert(response['msg'])
             }
         }
+
     })
+
 }

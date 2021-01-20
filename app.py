@@ -133,7 +133,11 @@ def update_card():
 
 @app.route('/memo', methods=['GET'])
 def view_list():
-    list_show = list(db.List_show.find({}, {'_id': 0}))
+    token_receive = request.headers['token_give']
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    print(payload)
+
+    list_show = list(db.List_show.find({}, {'_id': 0, "user_id": payload['id']}))
     return jsonify({'result': 'success', 'list_show': list_show})
 
 
