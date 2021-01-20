@@ -73,7 +73,7 @@ def api_login():
 
 
 #유저 정보 확인 API
-@app.route('/api/nick', methods=['GET'])
+@app.route('/api/id', methods=['GET'])
 def api_valid():
     token_receive = request.headers['token_give']
     try:
@@ -81,7 +81,7 @@ def api_valid():
         print(payload)
 
         userinfo = db.user.find_one({'id': payload['id']}, {'_id': 0})
-        return jsonify({'result': 'success', 'nickname': userinfo['nick']})
+        return jsonify({'result': 'success', 'id': userinfo['id'], 'nickname': userinfo['nick']})
     except jwt.ExpiredSignatureError:
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
 
@@ -91,10 +91,10 @@ def api_valid():
 def save_list():
 
     list_receive = request.form['list_title']
-
+    user_id_receive = request.form['user_id']
     doc = {
         'List_title': list_receive,
-
+        'user_id': user_id_receive
     }
 
     db.List_show.insert_one(doc)

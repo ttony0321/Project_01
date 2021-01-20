@@ -299,11 +299,13 @@ $(document).ready(function () {
 //Making API
 function List() {
     if($.cookie('mytoken') != undefined) {
-        let list_title = $('.list-input').val();
+        let list_title = $('.list-input').val()
+        console.log(user_id)
+        console.log(user_nick)
         $.ajax({
             type: "POST",
             url: "/list",
-            data: {list_title: list_title},
+            data: {list_title: list_title, user_id: user_id},
             success: function (response) {
                 if (response['result'] == 'success') {
                     console.log('list_title POST success')
@@ -542,6 +544,27 @@ function login_check(ajax_func) {
         ajax_func.abort()
     } else {
         ajax_func
-
+        user_info()
     }
+}
+function user_info(){
+    $.ajax({
+        type: "GET",
+        url: "/api/id",
+        headers:{'token_give' : $.cookie('mytoken') },
+        data: {},
+        success: function (response){
+            if(response['result'] == 'success'){
+                $('.id_nick').attr('id', 'nickname')
+                token = $.cookie('mytoken')
+                console.log($.cookie('mytoken'))
+                user_id = response['id']
+                user_nick = response['nick']
+                console.log(user_id)
+                console.log(user_nick)
+            }else{
+                 alert(response['msg'])
+            }
+        }
+    })
 }
