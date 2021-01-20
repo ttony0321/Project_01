@@ -68,17 +68,18 @@ $(document).ready(function () {
         $(this).hide();
         addCardLabel.show();
         //카드 ajax Post
-        card = (
-        $.ajax({
-            type: "POST",
-            url: "/card",
-            data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid},
-            success: function (response) {
-                if (response['result'] == 'success') {
+        if($.cookie('mytoken') != undefined) {
+            $.ajax({
+                type: "POST",
+                url: "/card",
+                data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                    }
                 }
-            }
-        }))
-        login_check(card)
+            })
+        }
+
 
 //위치이동
         $(function () {
@@ -297,19 +298,19 @@ $(document).ready(function () {
 
 //Making API
 function List() {
-    list_title = $('.list-input').val();
-    MList =
-    ($.ajax({
-        type: "POST",
-        url: "/list",
-        data: {list_title: list_title},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                console.log('list_title POST success')
-            }
-        },
-    }))
-    login_check(MList)
+    if($.cookie('mytoken') != undefined) {
+        let list_title = $('.list-input').val();
+        $.ajax({
+            type: "POST",
+            url: "/list",
+            data: {list_title: list_title},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    console.log('list_title POST success')
+                }
+            },
+        })
+    }
 }
 
 // function card() {
@@ -347,41 +348,41 @@ function List() {
 
 function showList() {
     SList =
-    ($.ajax({
-        type: "GET",
-        url: "/memo",
-        data: {},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                //let List_show = response['List_show'];
-                for (let i = 0; i < response['list_show'].length; i++) {
-                    MakeListCArd(response['list_show'][i]['List_title'])
+        ($.ajax({
+            type: "GET",
+            url: "/memo",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    //let List_show = response['List_show'];
+                    for (let i = 0; i < response['list_show'].length; i++) {
+                        MakeListCArd(response['list_show'][i]['List_title'])
+                    }
+                } else {
+                    alert('error');
                 }
-            } else {
-                alert('error');
             }
-        }
-    }))
+        }))
     login_check(SList)
 }
 
 function showCard() {
-Scard =
-    ($.ajax({
-        type: "GET",
-        url: "/memo2",
-        data: {},
-        success: function (response) {
-            if (response['result'] == 'success') {
-                for (let i = 0; i < response['card_show'].length; i++) {
-                    MakeCard(response['card_show'][i]['Card_title'], response['card_show'][i]['card_id'], response['card_show'][i]['card_uuid'])
+    Scard =
+        ($.ajax({
+            type: "GET",
+            url: "/memo2",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    for (let i = 0; i < response['card_show'].length; i++) {
+                        MakeCard(response['card_show'][i]['Card_title'], response['card_show'][i]['card_id'], response['card_show'][i]['card_uuid'])
 
+                    }
+                } else {
+                    alert('error');
                 }
-            } else {
-                alert('error');
             }
-        }
-    }))
+        }))
     login_check(Scard)
 }
 
@@ -541,5 +542,6 @@ function login_check(ajax_func) {
         ajax_func.abort()
     } else {
         ajax_func
+
     }
 }
