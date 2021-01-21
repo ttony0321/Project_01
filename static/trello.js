@@ -284,7 +284,11 @@ $(document).ready(function () {
         })
         card_cont.val("")
         card_cont.text(edit_title)
-
+        $(document).keydown(function (e){
+            if(e.keyCode == 13||e.which == 13){
+                $(".card-editor").submit()
+            }
+        })
     })
     $(document).on('click', '.card-editor-btn', function (e) {
         $(this).parent().submit()

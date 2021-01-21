@@ -153,15 +153,15 @@
     </div>
     <div class="card-edit hide">
 <!--        card-editor에 form태그 넣으면 새로고침 현상.-->
-            <div class="card-editor" onsubmit="return false">
+            <form class="card-editor" onsubmit="return false">
                 <div class="card-editor-box">
                     <div class="card-editor-box-details">
                         <textarea class="card-edit-textarea" dir="auto"
                                   placeholder="please enter Message..."></textarea>
                     </div>
                 </div>
-                <input class="card-editor-btn" type="submit" value="save">
-            </div>
+                <input class="card-editor-btn" type="text" value="save">
+            </form>
     </div>
 </div>
 <script type="text/javascript" src="../static/trello.js?ver=1"></script>
