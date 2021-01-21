@@ -299,6 +299,7 @@ $(document).ready(function () {
         if (e.which == 13) {
             addListForm.submit()
             $('.add-card-bottom').submit()
+            $('.card-editor').submit()
         }
     })
 })
