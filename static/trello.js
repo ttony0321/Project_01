@@ -72,7 +72,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 url: "/card",
-                data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid},
+                data: {card_title: card_title, card_id: card_id, card_uuid: card_uuid, user_id: user_id},
                 success: function (response) {
                     if (response['result'] == 'success') {
                     }
@@ -106,6 +106,7 @@ $(document).ready(function () {
                 },
             })
         })
+
 
     })
     $(document).on('click', '.addcard-btn', function (e) {
@@ -171,7 +172,7 @@ $(document).ready(function () {
                                                     <div class="list-card-members"></div>
                                                 </div>
                                             </div>
-                                            <div class="add-card-bottom">
+                                            <form class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
                                                         <input class="addcard-btn" type="submit" value="Add Card">
@@ -182,7 +183,7 @@ $(document).ready(function () {
                                                         </a>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
 
@@ -294,6 +295,12 @@ $(document).ready(function () {
             $('.card-edit').hide()
         }
     })
+    $(document).keydown(function (e){
+        if (e.which == 13) {
+            addListForm.submit()
+            $('.add-card-bottom').submit()
+        }
+    })
 })
 
 //Making API
@@ -350,9 +357,7 @@ function List() {
 
 function showList() {
     SList =
-        (
-
-    $.ajax({
+        ($.ajax({
         type: "GET",
         url: "/memo",
         headers: {'token_give': $.cookie('mytoken')},
@@ -377,6 +382,7 @@ function showCard() {
         ($.ajax({
             type: "GET",
             url: "/memo2",
+            headers: {'token_give': $.cookie('mytoken')},
             data: {},
             success: function (response) {
                 if (response['result'] == 'success') {
@@ -392,7 +398,7 @@ function showCard() {
     login_check(Scard)
 }
 
-function MakeListCArd(list_title, user_id) {
+function MakeListCArd(list_title) {
         let listWrapper = `<div class="list-box-wrapper">
                                 <div class="list-box">
                                     <div class="list-header">
@@ -428,6 +434,7 @@ function MakeListCArd(list_title, user_id) {
                                                     <div class="list-card-members"></div>
                                                 </div>
                                             </div>
+                                            <form>
                                             <div class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
@@ -440,6 +447,7 @@ function MakeListCArd(list_title, user_id) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
 
