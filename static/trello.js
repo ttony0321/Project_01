@@ -172,7 +172,7 @@ $(document).ready(function () {
                                                     <div class="list-card-members"></div>
                                                 </div>
                                             </div>
-                                            <form class="add-card-bottom">
+                                            <div class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
                                                         <input class="addcard-btn" type="submit" value="Add Card">
@@ -183,7 +183,7 @@ $(document).ready(function () {
                                                         </a>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -202,9 +202,12 @@ $(document).ready(function () {
         addListForm.hide();
         addListLabel.show();
 
-        //List 추가 ajax
-        //let list_title = listBoxTitle.val();
-
+        //card enter 입력
+        $(document).keydown(function (e){
+            if(e.which == 13){
+                $('.add-card-bottom').submit()
+            }
+        })
     });
     $(".close-icons").click(function (e) {
         $(".list-input").val("");
@@ -265,7 +268,6 @@ $(document).ready(function () {
         $('.card-edit').show()
         return content, uuid, id_card
     })
-    //첫번째만 수정가능.....
     $(document).on('submit', '.card-editor', function (e) {
         let edit_title = $(this).children().children().children('.card-edit-textarea').val()
         console.log(edit_title)
@@ -293,13 +295,6 @@ $(document).ready(function () {
         if (e.keyCode == 27 || e.which == 27) {
             $(".card-edit-textarea").val("");
             $('.card-edit').hide()
-        }
-    })
-    $(document).keydown(function (e){
-        if (e.which == 13) {
-            addListForm.submit()
-            $('.add-card-bottom').submit()
-            $('.card-editor').submit()
         }
     })
 })
@@ -435,7 +430,7 @@ function MakeListCArd(list_title) {
                                                     <div class="list-card-members"></div>
                                                 </div>
                                             </div>
-                                            <form>
+                                            
                                             <div class="add-card-bottom">
                                                 <div class="control-section">
                                                     <div class="card-input-controls">
@@ -448,7 +443,7 @@ function MakeListCArd(list_title) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            </form>
+                                           
                                         </div>
                                     </div>
 
